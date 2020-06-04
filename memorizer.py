@@ -1,6 +1,7 @@
 # this is a script to help a user memorize some text
 import os
 import random
+import string
 
 def main():
 
@@ -9,7 +10,6 @@ def main():
 
     omit = 1
 
-    print("made it here")
     prompt_rec(omit, words_list, original_string)
 
 
@@ -30,7 +30,13 @@ def prompt_rec(n, lst, strng, dont_repeat=[]):
     
     dont_repeat.append(index)
 
-    lst[index] = '_' * len(lst[index])
+
+    for i in range(len(lst[index])):  # this loop replaces the letters of the word at the selected index with underscores
+
+        if lst[index][i] not in string.punctuation:
+            l = list(lst[index])  # turn the word into a list of characters
+            l[i] = '_'  # change the later to an underscore
+            lst[index] = ''.join(l)
  
     attempt = ''  # this string will hold the users attempt to retype the original text
     attempt_count = 0  # use to print "try again" message for repeat attempts
