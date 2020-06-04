@@ -1,4 +1,5 @@
 # this is a script to help a user memorize some text
+import os
 import random
 
 def main():
@@ -20,24 +21,32 @@ def prompt_rec(n, lst, strng):
         return 0
 
     
+    dont_repeat = []  # a list to hold already used indexes so they don't get repeated
+
     for i in range(n):
 
-        index = random.randint(0, len(lst) - 1)
+        # this loop picks a random word in the string to replace with underscores.
+        # the loop is necessary to not choose an index that has already been used 
+    
+        valid_index = False
 
+        while not valid_index:
+
+            index = random.randint(0, len(lst) - 1)
+            if index not in dont_repeat:
+                valid_index = True
+
+        dont_repeat.append(index)
         lst[index] = '_' * len(lst[index])
 
  
-    attempt = ''
+    attempt = ''  # this string will hold the users attempt to retype the original text
     attempt_count = 0  # use to print "try again" message for repeat attempts
 
     while(attempt != strng):
-
-        # to clear the console
-        count = 0
-        while (count < 100):
-            print()
-            count += 1
  
+        os.system('cls' if os.name == 'nt' else 'clear')  # clear the console
+
         if attempt_count > 0:
             print("That wasn't quite right. Try again: ")
             print()
