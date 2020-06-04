@@ -16,6 +16,7 @@ def prompt_rec(n, lst, strng):
 
     # base case
     if n == len(lst):
+        print("You have successfully written the original text from memory.")
         return 0
 
     
