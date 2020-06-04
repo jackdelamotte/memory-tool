@@ -13,32 +13,24 @@ def main():
     prompt_rec(omit, words_list, original_string)
 
 
-def prompt_rec(n, lst, strng):
+def prompt_rec(n, lst, strng, dont_repeat=[]):
 
     # base case
-    if n == len(lst):
+    if n == len(lst) + 1:
         print("You have successfully written the original text from memory.")
-        return 0
-
+        return 0 
     
-    dont_repeat = []  # a list to hold already used indexes so they don't get repeated
+    valid_index = False
 
-    for i in range(n):
+    while not valid_index:
 
-        # this loop picks a random word in the string to replace with underscores.
-        # the loop is necessary to not choose an index that has already been used 
+        index = random.randint(0, len(lst) - 1)
+        if index not in dont_repeat:
+            valid_index = True
     
-        valid_index = False
+    dont_repeat.append(index)
 
-        while not valid_index:
-
-            index = random.randint(0, len(lst) - 1)
-            if index not in dont_repeat:
-                valid_index = True
-
-        dont_repeat.append(index)
-        lst[index] = '_' * len(lst[index])
-
+    lst[index] = '_' * len(lst[index])
  
     attempt = ''  # this string will hold the users attempt to retype the original text
     attempt_count = 0  # use to print "try again" message for repeat attempts
@@ -57,7 +49,7 @@ def prompt_rec(n, lst, strng):
         attempt = input("using the partial text above, type the original text, then press enter: ")
         print()
 
-    return prompt_rec(n+1, lst, strng)
+    return prompt_rec(n+1, lst, strng, dont_repeat)
 
 if __name__ == "__main__":
     main()
