@@ -28,14 +28,20 @@ def prompt_rec(n, lst, strng):
 
  
     attempt = ''
+    attempt_count = 0  # use to print "try again" message for repeat attempts
 
     while(attempt != strng):
 
         # to clear the console
         count = 0
-        while (count < 50):
+        while (count < 100):
             print()
             count += 1
+ 
+        if attempt_count > 0:
+            print("That wasn't quite right. Try again: ")
+            print()
+        attempt_count += 1
 
         print(" ".join(lst))
 
